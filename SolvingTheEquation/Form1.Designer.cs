@@ -28,11 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.graph = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.methodBisection = new System.Windows.Forms.RadioButton();
             this.methodNewton = new System.Windows.Forms.RadioButton();
@@ -47,13 +51,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.epsilon = new System.Windows.Forms.TextBox();
             this.step = new System.Windows.Forms.TextBox();
-            this.roots = new System.Windows.Forms.TextBox();
             this.build = new System.Windows.Forms.Button();
             this.solving = new System.Windows.Forms.Button();
             this.number = new System.Windows.Forms.ComboBox();
+            this.data = new System.Windows.Forms.DataGridView();
+            this.approximate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.accurate = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Check = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.countN = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.graph)).BeginInit();
             this.methods.SuspendLayout();
             this.options.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data)).BeginInit();
             this.SuspendLayout();
             // 
             // graph
@@ -65,39 +74,39 @@
             this.graph.BorderSkin.BorderColor = System.Drawing.Color.DarkOrange;
             this.graph.BorderSkin.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
             this.graph.BorderSkin.PageColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
-            chartArea2.BackColor = System.Drawing.Color.White;
-            chartArea2.BackSecondaryColor = System.Drawing.Color.White;
-            chartArea2.BorderColor = System.Drawing.Color.DarkGreen;
-            chartArea2.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
-            chartArea2.BorderWidth = 3;
-            chartArea2.Name = "ChartArea1";
-            this.graph.ChartAreas.Add(chartArea2);
-            legend3.Alignment = System.Drawing.StringAlignment.Center;
-            legend3.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
-            legend3.Font = new System.Drawing.Font("Microsoft Tai Le", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend3.IsTextAutoFit = false;
-            legend3.Name = "NameFunction";
-            legend3.TitleFont = new System.Drawing.Font("Microsoft Tai Le", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            legend4.Enabled = false;
-            legend4.Name = "GraphRoot";
-            this.graph.Legends.Add(legend3);
-            this.graph.Legends.Add(legend4);
+            chartArea1.BackColor = System.Drawing.Color.White;
+            chartArea1.BackSecondaryColor = System.Drawing.Color.White;
+            chartArea1.BorderColor = System.Drawing.Color.DarkGreen;
+            chartArea1.BorderDashStyle = System.Windows.Forms.DataVisualization.Charting.ChartDashStyle.Solid;
+            chartArea1.BorderWidth = 3;
+            chartArea1.Name = "ChartArea1";
+            this.graph.ChartAreas.Add(chartArea1);
+            legend1.Alignment = System.Drawing.StringAlignment.Center;
+            legend1.Docking = System.Windows.Forms.DataVisualization.Charting.Docking.Bottom;
+            legend1.Font = new System.Drawing.Font("Microsoft Tai Le", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend1.IsTextAutoFit = false;
+            legend1.Name = "NameFunction";
+            legend1.TitleFont = new System.Drawing.Font("Microsoft Tai Le", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            legend2.Enabled = false;
+            legend2.Name = "GraphRoot";
+            this.graph.Legends.Add(legend1);
+            this.graph.Legends.Add(legend2);
             this.graph.Location = new System.Drawing.Point(440, 12);
             this.graph.Name = "graph";
-            series3.ChartArea = "ChartArea1";
-            series3.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series3.Color = System.Drawing.Color.Blue;
-            series3.Legend = "NameFunction";
-            series3.LegendText = "Function";
-            series3.Name = "Function";
-            series4.ChartArea = "ChartArea1";
-            series4.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
-            series4.Color = System.Drawing.Color.Red;
-            series4.Legend = "GraphRoot";
-            series4.Name = "Series2";
-            this.graph.Series.Add(series3);
-            this.graph.Series.Add(series4);
-            this.graph.Size = new System.Drawing.Size(730, 520);
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series1.Color = System.Drawing.Color.Blue;
+            series1.Legend = "NameFunction";
+            series1.LegendText = "Function";
+            series1.Name = "Function";
+            series2.ChartArea = "ChartArea1";
+            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Point;
+            series2.Color = System.Drawing.Color.Red;
+            series2.Legend = "GraphRoot";
+            series2.Name = "Series2";
+            this.graph.Series.Add(series1);
+            this.graph.Series.Add(series2);
+            this.graph.Size = new System.Drawing.Size(730, 377);
             this.graph.TabIndex = 0;
             this.graph.Text = "chart1";
             // 
@@ -262,26 +271,13 @@
             this.step.TabIndex = 7;
             this.step.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.step_KeyPress);
             // 
-            // roots
-            // 
-            this.roots.BackColor = System.Drawing.Color.White;
-            this.roots.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.roots.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.roots.Location = new System.Drawing.Point(12, 336);
-            this.roots.Multiline = true;
-            this.roots.Name = "roots";
-            this.roots.ReadOnly = true;
-            this.roots.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.roots.Size = new System.Drawing.Size(420, 137);
-            this.roots.TabIndex = 8;
-            // 
             // build
             // 
             this.build.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(52)))), ((int)(((byte)(52)))), ((int)(((byte)(52)))));
             this.build.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.build.Font = new System.Drawing.Font("Microsoft Tai Le", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.build.ForeColor = System.Drawing.Color.White;
-            this.build.Location = new System.Drawing.Point(12, 479);
+            this.build.Location = new System.Drawing.Point(12, 336);
             this.build.Name = "build";
             this.build.Size = new System.Drawing.Size(200, 53);
             this.build.TabIndex = 9;
@@ -295,7 +291,7 @@
             this.solving.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.solving.Font = new System.Drawing.Font("Microsoft Tai Le", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.solving.ForeColor = System.Drawing.Color.White;
-            this.solving.Location = new System.Drawing.Point(234, 479);
+            this.solving.Location = new System.Drawing.Point(234, 336);
             this.solving.Name = "solving";
             this.solving.Size = new System.Drawing.Size(200, 53);
             this.solving.TabIndex = 10;
@@ -323,7 +319,7 @@
             "11",
             "12",
             "13"});
-            this.number.Location = new System.Drawing.Point(660, 479);
+            this.number.Location = new System.Drawing.Point(667, 341);
             this.number.MaxDropDownItems = 13;
             this.number.MaxLength = 2;
             this.number.Name = "number";
@@ -332,16 +328,97 @@
             this.number.Text = "1";
             this.number.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.number_KeyPress);
             // 
+            // data
+            // 
+            this.data.AllowUserToAddRows = false;
+            this.data.AllowUserToDeleteRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle1.NullValue = null;
+            this.data.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.data.BackgroundColor = System.Drawing.Color.White;
+            this.data.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
+            this.data.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.data.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.approximate,
+            this.accurate,
+            this.Check,
+            this.countN});
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Tai Le", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(217)))), ((int)(((byte)(235)))), ((int)(((byte)(249)))));
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Black;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.data.DefaultCellStyle = dataGridViewCellStyle2;
+            this.data.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.data.Location = new System.Drawing.Point(12, 395);
+            this.data.Name = "data";
+            this.data.ReadOnly = true;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle3.BackColor = System.Drawing.Color.White;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.data.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.data.RowHeadersVisible = false;
+            this.data.RowHeadersWidth = 51;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            this.data.RowsDefaultCellStyle = dataGridViewCellStyle4;
+            this.data.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            this.data.RowTemplate.Height = 24;
+            this.data.Size = new System.Drawing.Size(1158, 146);
+            this.data.StandardTab = true;
+            this.data.TabIndex = 12;
+            // 
+            // approximate
+            // 
+            this.approximate.DividerWidth = 5;
+            this.approximate.HeaderText = "Уточняемый";
+            this.approximate.MinimumWidth = 6;
+            this.approximate.Name = "approximate";
+            this.approximate.ReadOnly = true;
+            this.approximate.Width = 250;
+            // 
+            // accurate
+            // 
+            this.accurate.DividerWidth = 5;
+            this.accurate.HeaderText = "Уточнённый";
+            this.accurate.MinimumWidth = 6;
+            this.accurate.Name = "accurate";
+            this.accurate.ReadOnly = true;
+            this.accurate.Width = 250;
+            // 
+            // Check
+            // 
+            this.Check.DividerWidth = 5;
+            this.Check.HeaderText = "f(уточнённый)";
+            this.Check.MinimumWidth = 6;
+            this.Check.Name = "Check";
+            this.Check.ReadOnly = true;
+            this.Check.Width = 250;
+            // 
+            // countN
+            // 
+            this.countN.HeaderText = "Количество итераций";
+            this.countN.MinimumWidth = 6;
+            this.countN.Name = "countN";
+            this.countN.ReadOnly = true;
+            this.countN.Width = 90;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(31)))), ((int)(((byte)(31)))), ((int)(((byte)(31)))));
             this.ClientSize = new System.Drawing.Size(1182, 553);
+            this.Controls.Add(this.data);
             this.Controls.Add(this.number);
             this.Controls.Add(this.solving);
             this.Controls.Add(this.build);
-            this.Controls.Add(this.roots);
             this.Controls.Add(this.options);
             this.Controls.Add(this.methods);
             this.Controls.Add(this.graph);
@@ -354,8 +431,8 @@
             this.methods.PerformLayout();
             this.options.ResumeLayout(false);
             this.options.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.data)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -375,10 +452,14 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox epsilon;
         private System.Windows.Forms.TextBox step;
-        private System.Windows.Forms.TextBox roots;
         private System.Windows.Forms.Button build;
         private System.Windows.Forms.Button solving;
         private System.Windows.Forms.ComboBox number;
+        private System.Windows.Forms.DataGridView data;
+        private System.Windows.Forms.DataGridViewTextBoxColumn approximate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn accurate;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Check;
+        private System.Windows.Forms.DataGridViewTextBoxColumn countN;
     }
 }
 

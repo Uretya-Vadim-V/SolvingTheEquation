@@ -18,7 +18,7 @@ namespace SolvingTheEquation
             InitializeComponent();
         }
         private double borderA, borderB, stepH, epsE;
-        List<(double X1, double X2)> segments;
+        List<(double X1, double X2, double Root)> segments;
         Method.Func func;
         Method.DFunc dfunc;
 
@@ -140,18 +140,20 @@ namespace SolvingTheEquation
             graph.Series[1].Points.Clear();
             graph.ChartAreas[0].AxisX.Minimum = borderA;
             graph.ChartAreas[0].AxisX.Maximum = borderB;
-            double y, fb, buffer = borderA;
-            segments = new List<(double X1, double X2)>();
+            double y, fb, buffer = borderA, approximate;
+            segments = new List<(double X1, double X2, double Root)>();
             Condition();
             for (double x = borderA; x <= borderB; x += stepH)
             {
                 y = func(x);
+                if (y >= Math.Abs((double)decimal.MaxValue) || Math.Abs(y) == checked(1d / 0)) y = double.NaN;
                 graph.Series[0].Points.AddXY(x, y);
                 fb = func(buffer);
                 if (y * fb <= 0)
                 {
-                    segments.Add((buffer, x));
-                    graph.Series[1].Points.AddXY((buffer * y - fb * x) / (y - fb), 0);
+                    approximate = (buffer * y - fb * x) / (y - fb);
+                    segments.Add((buffer, x, approximate));
+                    graph.Series[1].Points.AddXY(approximate, 0);
                 }
                 buffer = x;
             }
@@ -180,22 +182,21 @@ namespace SolvingTheEquation
         private void solving_Click(object sender, EventArgs e)
         {
             double.TryParse(epsilon.Text, out epsE);
-            roots.Clear();
             double root;
             if (methodBisection.Checked)
             {
                 foreach (var item in segments)
                 {
                     root = Method.Bisection(func, item.X1, item.X2, epsE);
-                    roots.Text += $"x = {root}" + Environment.NewLine + $"f(x) = {func(root)}" + Environment.NewLine + $"[{item.X1}; {item.X2}]" + Environment.NewLine + Environment.NewLine;
+                    data.Rows.Add(item.Root, root, func(root),"");
                 }
             }
             if (methodNewton.Checked)
             {
                 foreach (var item in segments)
                 {
-                    root = Method.Newton(func, dfunc, item.X1, epsE);
-                    roots.Text += $"x = {root}" + Environment.NewLine + $"f(x) = {func(root)}" + Environment.NewLine + $"[{item.X1}; {item.X2}]" + Environment.NewLine + Environment.NewLine;
+                    root = Method.Newton(func, dfunc, item.X1, item.X2, epsE);
+                    data.Rows.Add(item.Root, root, func(root), "");
                 }
             }
             if (methodChord.Checked)
@@ -203,7 +204,7 @@ namespace SolvingTheEquation
                 foreach (var item in segments)
                 {
                     root = Method.Chord(func, item.X1, item.X2, epsE);
-                    roots.Text += $"x = {root}" + Environment.NewLine + $"f(x) = {func(root)}" + Environment.NewLine + $"[{item.X1}; {item.X2}]" + Environment.NewLine + Environment.NewLine;
+                    data.Rows.Add(item.Root, root, func(root), "");
                 }
             }
         }
