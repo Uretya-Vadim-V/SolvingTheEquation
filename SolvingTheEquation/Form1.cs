@@ -19,8 +19,6 @@ namespace SolvingTheEquation
         }
         private double borderA, borderB, stepH, epsE;
         List<(double X1, double X2, double Root)> segments;
-        Method.Func func;
-        Method.DFunc dfunc;
 
         private void minimumX_KeyPress(object sender, KeyPressEventArgs e)
         {
@@ -136,19 +134,24 @@ namespace SolvingTheEquation
             double.TryParse(minimumX.Text, out borderA);
             double.TryParse(maximumX.Text, out borderB);
             double.TryParse(step.Text, out stepH);
+            int.TryParse(number.Text, out int condition);
             graph.Series[0].Points.Clear();
             graph.Series[1].Points.Clear();
             graph.ChartAreas[0].AxisX.Minimum = borderA;
             graph.ChartAreas[0].AxisX.Maximum = borderB;
-            double y, fb, buffer = borderA, approximate;
+            (Method.Func, Method.DFunc) functions = Condition(condition);
+            BuildGraph(functions.Item1, borderA, borderB, stepH);
+        }
+        private void BuildGraph(Method.Func f, double x1, double x2, double h)
+        {
+            double y, fb, buffer = x1, approximate;
             segments = new List<(double X1, double X2, double Root)>();
-            Condition();
-            for (double x = borderA; x <= borderB; x += stepH)
+            for (double x = x1; x <= x2; x += h)
             {
-                y = func(x);
+                y = f(x);
                 if (y >= Math.Abs((double)decimal.MaxValue) || Math.Abs(y) == checked(1d / 0)) y = double.NaN;
                 graph.Series[0].Points.AddXY(x, y);
-                fb = func(buffer);
+                fb = f(buffer);
                 if (y * fb <= 0)
                 {
                     approximate = (buffer * y - fb * x) / (y - fb);
@@ -158,10 +161,12 @@ namespace SolvingTheEquation
                 buffer = x;
             }
         }
-        private void Condition()
+
+        private (Method.Func, Method.DFunc) Condition(int cond)
         {
-            int.TryParse(number.Text, out int condition);
-            switch (condition)
+            Method.Func func = null;
+            Method.DFunc dfunc = null;
+            switch (cond)
             {
                 case 1: func = Method.Function1; dfunc = Method.DFunction1; break;
                 case 2: func = Method.Function2; dfunc = Method.DFunction2; break;
@@ -177,36 +182,46 @@ namespace SolvingTheEquation
                 case 12: func = Method.Function12; dfunc = Method.DFunction12; break;
                 case 13: func = Method.Function13; dfunc = Method.DFunction13; break;
             }
+            return (func, dfunc);
         }
 
         private void solving_Click(object sender, EventArgs e)
         {
             double.TryParse(epsilon.Text, out epsE);
+            int.TryParse(number.Text, out int condition);
+            (Method.Func, Method.DFunc) functions = Condition(condition);
+            data.Rows.Clear();
+            TableInfo(functions.Item1, functions.Item2);
+        }
+        private void TableInfo(Method.Func f, Method.DFunc df)
+        {
             double root;
+            int count = 0;
             if (methodBisection.Checked)
             {
                 foreach (var item in segments)
                 {
-                    root = Method.Bisection(func, item.X1, item.X2, epsE);
-                    data.Rows.Add(item.Root, root, func(root),"");
+                    root = Method.Bisection(f, item.X1, item.X2, epsE, out count);
+                    data.Rows.Add(item.Root, root, f(root), count);
                 }
             }
             if (methodNewton.Checked)
             {
                 foreach (var item in segments)
                 {
-                    root = Method.Newton(func, dfunc, item.X1, item.X2, epsE);
-                    data.Rows.Add(item.Root, root, func(root), "");
+                    root = Method.Newton(f, df, item.X1, item.X2, epsE, out count);
+                    data.Rows.Add(item.Root, root, f(root), count);
                 }
             }
             if (methodChord.Checked)
             {
                 foreach (var item in segments)
                 {
-                    root = Method.Chord(func, item.X1, item.X2, epsE);
-                    data.Rows.Add(item.Root, root, func(root), "");
+                    root = Method.Chord(f, item.X1, item.X2, epsE, out count);
+                    data.Rows.Add(item.Root, root, f(root), count);
                 }
             }
         }
+
     }
 }
